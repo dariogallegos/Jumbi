@@ -12,6 +12,8 @@ import MapKit
 class ViewController: UIViewController {
 
     let locationManager = CLLocationManager()
+    let geocoder = CLGeocoder()
+    var address = ""
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var lblLatitud: UILabel!
@@ -28,8 +30,11 @@ class ViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.startUpdatingLocation()
         
-        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(method))
+        //Cambiamos el UITapGestureRecognizer por el UIlongPressedRecognizer para que no haya problemas
+        // cuando pulsemos para moverlo o ver el callout
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(action(gestureRecognizer:)))
+        //let tapGesture = UILongPressGestureRecognizer(target: self, action: #selector(action(gestureRecognizer:)))
         mapView.addGestureRecognizer(tapGesture)
         
         
@@ -97,17 +102,47 @@ extension ViewController: CLLocationManagerDelegate {
         
         let touchPoint = gestureRecognizer.location(in: mapView)
         let newCoords = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = newCoords
-        
-        
+        geocoderLocation(newLocation:CLLocation(latitude: newCoords.latitude, longitude: newCoords.longitude))
         let latitud = String(format: "%.4f",newCoords.latitude)
         let longitud = String(format: "%.4f",newCoords.longitude)
         
-        annotation.title = "Dirección "
+       
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = newCoords
+        annotation.title = address
         annotation.subtitle = "Latitud: \(latitud) Longitud: \(longitud)"
         mapView.addAnnotation(annotation)
         
+    }
+    
+    func geocoderLocation(newLocation: CLLocation){
+        var direccion = ""
+        geocoder.reverseGeocodeLocation(newLocation) { (placemarks, error) in
+            if error == nil {
+                direccion = "No se ha podido encontrar la direccion"
+            }
+            if let placemarks = placemarks?.last {
+                direccion = self.stringFromPlaceMarks(placemark: placemarks)
+            }
+            
+            self.address = direccion
+        }
+    }
+    
+    func stringFromPlaceMarks(placemark: CLPlacemark) -> String {
+        var direccion = ""
+        
+        if let via = placemark.thoroughfare {
+            direccion += via + " ,"
+        }
+        if let calle = placemark.subThoroughfare {
+            direccion += calle + " "
+        }
+        if let localidad = placemark.locality {
+            direccion += " (\(localidad)) "
+        }
+        return direccion
     }
     
 }
