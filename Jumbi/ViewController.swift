@@ -7,14 +7,126 @@
 //
 
 import UIKit
+import MapKit
 
 class ViewController: UIViewController {
 
+    let locationManager = CLLocationManager()
+    
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var lblLatitud: UILabel!
+    @IBOutlet weak var lblLongitud: UILabel!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        mapView.showsUserLocation = true
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.startUpdatingLocation()
+        
+        //let tapGesture = UITapGestureRecognizer(target: self, action: #selector(method))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(action(gestureRecognizer:)))
+        mapView.addGestureRecognizer(tapGesture)
+        
+        
     }
-
-
+    @IBAction func locationButtonPressed() {
+        initLocation()
+    }
+    
+    
+    
+    //Inicia el pedido de permiso
+    func initLocation(){
+        let permission = CLLocationManager.authorizationStatus()
+        
+        if permission == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
+        } else if permission == .denied {
+            alertLocation(titleLocation:"Error de localización", messageLocation: "Actualmente tiene denegada la localización del dispositivo.")
+        } else if permission == .restricted {
+            alertLocation(titleLocation:"Error de localización", messageLocation: "Actualmente tiene restringida la localización del dispositivo.")
+        } else {
+            
+            guard let currentCoordinate = locationManager.location?.coordinate else {
+                return
+            }
+            let region = MKCoordinateRegion(center: currentCoordinate, latitudinalMeters: 500 , longitudinalMeters: 500)
+            mapView.setRegion(region, animated: true)
+        }
+    }
+    
+    func alertLocation(titleLocation: String, messageLocation: String){
+        let alert = UIAlertController(title: titleLocation, message: messageLocation, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Aceptar", style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
 }
 
+
+extension ViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error en la localizacion")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let newLocation = locations.last else { return }
+        
+        let userCoord = newLocation.coordinate
+        let latitud = Double(userCoord.latitude)
+        let longitud = Double(userCoord.longitude)
+        
+        let latSt = (latitud < 0) ? "S" : "N"
+        let lonSt = (longitud < 0) ? "O" : "E"
+        
+        lblLatitud.text = "\(latSt) \(latitud)"
+        lblLongitud.text = "\(lonSt) \(longitud)"
+    }
+    
+    @objc func action(gestureRecognizer: UIGestureRecognizer) {
+        
+        self.mapView.removeAnnotations(mapView.annotations)
+        
+        let touchPoint = gestureRecognizer.location(in: mapView)
+        let newCoords = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = newCoords
+        mapView.addAnnotation(annotation)
+        
+    }
+    
+}
+
+extension ViewController : MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        //Devuelve un pin personalizado
+        
+        
+        let annotationID = "AnnotationID"
+        var annotationView: MKAnnotationView?
+        if let dequeueAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationID){
+            annotationView = dequeueAnnotationView
+            annotationView?.annotation = annotation
+        }
+        else{
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationID)
+        }
+        
+        if let annotationView = annotationView {
+            annotationView.image = UIImage(named: "img_pin")
+        }
+        return annotationView
+    }
+}
