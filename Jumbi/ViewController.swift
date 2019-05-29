@@ -90,6 +90,7 @@ extension ViewController: CLLocationManagerDelegate {
         lblLongitud.text = "\(lonSt) \(longitud)"
     }
     
+    //Funcion que gestiona el tap del pin. -necesita esta nomenclatura @objc
     @objc func action(gestureRecognizer: UIGestureRecognizer) {
         
         self.mapView.removeAnnotations(mapView.annotations)
@@ -98,6 +99,13 @@ extension ViewController: CLLocationManagerDelegate {
         let newCoords = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         let annotation = MKPointAnnotation()
         annotation.coordinate = newCoords
+        
+        
+        let latitud = String(format: "%.4f",newCoords.latitude)
+        let longitud = String(format: "%.4f",newCoords.longitude)
+        
+        annotation.title = "Dirección "
+        annotation.subtitle = "Latitud: \(latitud) Longitud: \(longitud)"
         mapView.addAnnotation(annotation)
         
     }
@@ -111,9 +119,9 @@ extension ViewController : MKMapViewDelegate {
             return nil
         }
         
-        //Devuelve un pin personalizado
-        
-        
+        //Devuelve un pin(annotation) personalizado
+        //Vamos a poner un Call Out al pin
+
         let annotationID = "AnnotationID"
         var annotationView: MKAnnotationView?
         if let dequeueAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationID){
@@ -125,6 +133,7 @@ extension ViewController : MKMapViewDelegate {
         }
         
         if let annotationView = annotationView {
+            annotationView.canShowCallout = true
             annotationView.image = UIImage(named: "img_pin")
         }
         return annotationView
