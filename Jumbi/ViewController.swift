@@ -9,15 +9,16 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UISearchBarDelegate {
 
     let locationManager = CLLocationManager()
     let geocoder = CLGeocoder()
     var address = ""
+    var searchBarController = UISearchController()
     
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var lblLatitud: UILabel!
-    @IBOutlet weak var lblLongitud: UILabel!
+    //@IBOutlet weak var lblLatitud: UILabel!
+    //@IBOutlet weak var lblLongitud: UILabel!
     
     
     
@@ -78,22 +79,10 @@ class ViewController: UIViewController {
 extension ViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Error en la localizacion")
+        print("Estoy en la location manager")
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let newLocation = locations.last else { return }
-        
-        let userCoord = newLocation.coordinate
-        let latitud = Double(userCoord.latitude)
-        let longitud = Double(userCoord.longitude)
-        
-        let latSt = (latitud < 0) ? "S" : "N"
-        let lonSt = (longitud < 0) ? "O" : "E"
-        
-        lblLatitud.text = "\(latSt) \(latitud)"
-        lblLongitud.text = "\(lonSt) \(longitud)"
-    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {}
     
     //Funcion que gestiona el tap del pin. -necesita esta nomenclatura @objc
     @objc func action(gestureRecognizer: UIGestureRecognizer) {
@@ -139,10 +128,52 @@ extension ViewController: CLLocationManagerDelegate {
         if let calle = placemark.subThoroughfare {
             direccion += calle + " "
         }
-        if let localidad = placemark.locality {
+        if let localidad =	 placemark.locality {
             direccion += " (\(localidad)) "
         }
         return direccion
+    }
+    
+    //Funcion para mostrar la barra en la parte superior de la view
+    @IBAction func showSearchBar(){
+        searchBarController = UISearchController(searchResultsController: nil)
+        searchBarController.hidesNavigationBarDuringPresentation = false
+        self.searchBarController.searchBar.delegate = self
+        present(searchBarController, animated: true, completion: nil)
+    }
+    
+    //buscar la direccion del usuario que haya puesto
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        dismiss(animated: true, completion: nil)
+        
+        // Miramos si existen annontataions , es caso de ser asi descartamos la que tenemos , para cuando le demos a buscar no nos pinte dos pins
+        
+        // MARK : terminar de usar esto
+        if mapView.annotations.count > 1 {
+            self.mapView.removeAnnotations(mapView.annotations)
+        }
+        
+        geocoder.geocodeAddressString(searchBar.text!) { (placemarks:[CLPlacemark]?, error:Error?) in
+            
+            if error == nil {
+                let placemark = placemarks?.first
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = (placemark?.location?.coordinate)!
+                annotation.title = searchBar.text!
+                
+                let spam = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+                let region = MKCoordinateRegion(center: annotation.coordinate, span: spam)
+                
+                self.mapView.setRegion(region, animated: true)
+                self.mapView.addAnnotation(annotation)
+                self.mapView.selectAnnotation(annotation, animated: true)
+            } else {
+                print("Error")
+            }
+        }
+        
+        
     }
     
 }
