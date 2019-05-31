@@ -17,6 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UISearchBar.appearance().tintColor = .jumbiOrange
+        UINavigationBar.appearance().tintColor = .jumbiOrange
         return true
     }
 
