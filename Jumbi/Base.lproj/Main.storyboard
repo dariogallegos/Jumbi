@@ -304,6 +304,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="IT7-Ve-YgH" kind="showDetail" identifier="showDetail" id="Dc0-EV-F0j"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -327,26 +330,66 @@
                     <connections>
                         <outlet property="searchBar" destination="jvt-cD-4q3" id="yIZ-Lw-FYj"/>
                         <outlet property="tblView" destination="uYN-do-mOI" id="8TI-gI-Z9B"/>
+                        <segue destination="IT7-Ve-YgH" kind="show" id="KuJ-AA-oh5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rzv-5X-bUp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="121.73913043478262" y="6.6964285714285712"/>
         </scene>
-        <!--View Controller-->
+        <!--Chocolate-->
         <scene sceneID="nWK-Dv-QdK">
             <objects>
-                <viewController id="IT7-Ve-YgH" sceneMemberID="viewController">
+                <viewController id="IT7-Ve-YgH" customClass="DetailViewController" customModule="Jumbi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eTc-4Y-YqK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="XtH-fv-l1L">
+                                <rect key="frame" x="20" y="144" width="374" height="573"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEi-yk-jJP">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="374" id="PI8-xz-SAT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Is6-ea-LDG">
+                                        <rect key="frame" x="0.0" y="42" width="374" height="531"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="mEi-yk-jJP" secondAttribute="trailing" id="0Sz-R0-arW"/>
+                                    <constraint firstAttribute="bottom" secondItem="Is6-ea-LDG" secondAttribute="bottom" id="JlC-aA-qP7"/>
+                                    <constraint firstItem="Is6-ea-LDG" firstAttribute="top" secondItem="mEi-yk-jJP" secondAttribute="bottom" constant="19" id="OXJ-vl-H1V"/>
+                                    <constraint firstItem="Is6-ea-LDG" firstAttribute="leading" secondItem="XtH-fv-l1L" secondAttribute="leading" id="SIc-da-3gB"/>
+                                    <constraint firstItem="mEi-yk-jJP" firstAttribute="top" secondItem="XtH-fv-l1L" secondAttribute="top" id="WNi-ry-Wrs"/>
+                                    <constraint firstAttribute="trailing" secondItem="Is6-ea-LDG" secondAttribute="trailing" id="jEy-EC-IJ6"/>
+                                    <constraint firstItem="mEi-yk-jJP" firstAttribute="leading" secondItem="XtH-fv-l1L" secondAttribute="leading" id="yUv-TA-YQZ"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bX8-WG-DdQ" firstAttribute="trailing" secondItem="XtH-fv-l1L" secondAttribute="trailing" constant="20" id="9hL-Tn-vHD"/>
+                            <constraint firstItem="XtH-fv-l1L" firstAttribute="leading" secondItem="bX8-WG-DdQ" secondAttribute="leading" constant="20" id="Hho-uR-zDN"/>
+                            <constraint firstItem="XtH-fv-l1L" firstAttribute="top" secondItem="bX8-WG-DdQ" secondAttribute="top" constant="56" id="cSv-yg-3aH"/>
+                            <constraint firstItem="bX8-WG-DdQ" firstAttribute="bottom" secondItem="XtH-fv-l1L" secondAttribute="bottom" constant="145" id="sc1-gs-tGt"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="bX8-WG-DdQ"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Chocolate" id="MCF-3B-PLJ"/>
+                    <connections>
+                        <outlet property="detailDescriptionLabel" destination="mEi-yk-jJP" id="LBh-29-QFt"/>
+                        <outlet property="trushImageView" destination="Is6-ea-LDG" id="Fdj-SN-cp2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1UB-3F-rVO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="897" y="3"/>
+            <point key="canvasLocation" x="908.69565217391312" y="6.6964285714285712"/>
         </scene>
     </scenes>
     <resources>
@@ -354,6 +397,7 @@
         <image name="btn_localizar_on" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="KuJ-AA-oh5"/>
         <segue reference="x6S-1g-pgp"/>
     </inferredMetricsTieBreakers>
 </document>

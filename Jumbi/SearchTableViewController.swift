@@ -84,6 +84,27 @@ extension SearchTableViewController: UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
+    // MARK: - Segues
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            if let indexPath = tblView.indexPathForSelectedRow {
+                let trush: Trush
+                if searching {
+                    trush = filteredTrush[indexPath.row]
+                } else {
+                    trush = trushies[indexPath.row]
+                }
+                
+                if let controller = segue.destination as? DetailViewController {
+                    controller.detailTrush = trush
+                    controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                    controller.navigationItem.leftItemsSupplementBackButton = true
+                    debugPrint(trush)
+                }
+            }
+        }
+    }
+    
     
     func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
