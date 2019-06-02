@@ -395,7 +395,7 @@
                     <connections>
                         <outlet property="detailDescriptionLabel" destination="mEi-yk-jJP" id="LBh-29-QFt"/>
                         <outlet property="trushImageView" destination="Is6-ea-LDG" id="Fdj-SN-cp2"/>
-                        <segue destination="BYZ-38-t0r" kind="show" id="RZH-wv-DLB"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="LocationSegue" id="RZH-wv-DLB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1UB-3F-rVO" userLabel="First Responder" sceneMemberID="firstResponder"/>

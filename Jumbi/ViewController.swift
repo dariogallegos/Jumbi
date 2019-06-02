@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 class ViewController: UIViewController, UISearchBarDelegate {
-
+    
     let locationManager = CLLocationManager()
     let geocoder = CLGeocoder()
     var address = ""
@@ -25,6 +25,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        debugPrint("estoy en location")
         mapView.showsUserLocation = true
         
         locationManager.delegate = self
