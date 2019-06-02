@@ -67,17 +67,17 @@
 			isa = PBXGroup;
 			children = (
 				A308D272229DF936009ED4C0 /* AppDelegate.swift */,
-				A308D274229DF936009ED4C0 /* ViewController.swift */,
-				A308D276229DF936009ED4C0 /* Main.storyboard */,
-				A308D27C229DF938009ED4C0 /* Assets.xcassets */,
 				A308D27E229DF938009ED4C0 /* LaunchScreen.storyboard */,
-				A308D281229DF938009ED4C0 /* Info.plist */,
-				A308D279229DF936009ED4C0 /* Jumbi.xcdatamodeld */,
-				A354816222A0921700A2D48D /* DesignedView.swift */,
+				A308D276229DF936009ED4C0 /* Main.storyboard */,
 				D918DBB022A17C43001F22C1 /* JumbiTheme.swift */,
+				A354816222A0921700A2D48D /* DesignedView.swift */,
+				A308D27C229DF938009ED4C0 /* Assets.xcassets */,
+				A308D274229DF936009ED4C0 /* ViewController.swift */,
 				A310012222A200AC00D1081E /* DetailViewController.swift */,
 				D918DBB222A18C10001F22C1 /* SearchTableViewController.swift */,
 				D918DBB422A1A9E5001F22C1 /* Trush.swift */,
+				A308D279229DF936009ED4C0 /* Jumbi.xcdatamodeld */,
+				A308D281229DF938009ED4C0 /* Info.plist */,
 			);
 			path = Jumbi;
 			sourceTree = "<group>";
