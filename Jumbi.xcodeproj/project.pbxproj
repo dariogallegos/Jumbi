@@ -18,6 +18,8 @@
 		D918DBB122A17C43001F22C1 /* JumbiTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D918DBB022A17C43001F22C1 /* JumbiTheme.swift */; };
 		D918DBB322A18C10001F22C1 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D918DBB222A18C10001F22C1 /* SearchTableViewController.swift */; };
 		D918DBB522A1A9E5001F22C1 /* Trush.swift in Sources */ = {isa = PBXBuildFile; fileRef = D918DBB422A1A9E5001F22C1 /* Trush.swift */; };
+		D9947F1922A5693500ED730B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9947F1822A5693500ED730B /* LoginViewController.swift */; };
+		D9947F1B22A581AB00ED730B /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9947F1A22A581AB00ED730B /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		D918DBB022A17C43001F22C1 /* JumbiTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumbiTheme.swift; sourceTree = "<group>"; };
 		D918DBB222A18C10001F22C1 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		D918DBB422A1A9E5001F22C1 /* Trush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trush.swift; sourceTree = "<group>"; };
+		D9947F1822A5693500ED730B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D9947F1A22A581AB00ED730B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 				D918DBB022A17C43001F22C1 /* JumbiTheme.swift */,
 				A354816222A0921700A2D48D /* DesignedView.swift */,
 				A308D27C229DF938009ED4C0 /* Assets.xcassets */,
+				D9947F1822A5693500ED730B /* LoginViewController.swift */,
+				D9947F1A22A581AB00ED730B /* RegisterViewController.swift */,
 				A308D274229DF936009ED4C0 /* ViewController.swift */,
 				A310012222A200AC00D1081E /* DetailViewController.swift */,
 				D918DBB222A18C10001F22C1 /* SearchTableViewController.swift */,
@@ -153,6 +159,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9947F1922A5693500ED730B /* LoginViewController.swift in Sources */,
+				D9947F1B22A581AB00ED730B /* RegisterViewController.swift in Sources */,
 				D918DBB522A1A9E5001F22C1 /* Trush.swift in Sources */,
 				A308D275229DF936009ED4C0 /* ViewController.swift in Sources */,
 				D918DBB322A18C10001F22C1 /* SearchTableViewController.swift in Sources */,

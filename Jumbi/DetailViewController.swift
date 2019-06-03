@@ -34,6 +34,7 @@ class DetailViewController: UIViewController {
     
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         configureView()
         debugPrint("estoy en detail")

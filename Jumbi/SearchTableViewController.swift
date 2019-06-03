@@ -124,12 +124,11 @@ extension SearchTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // cuando pulsamos sobre la barra se abre el teclado
         //self.view.endEditing(true)
-        
-        filteredTrush = trushies.filter(
-            {   $0.category.lowercased().prefix(searchText.count) == searchText.lowercased() ||
-                $0.name.lowercased().prefix(searchText.count) == searchText.lowercased()
+    
+        filteredTrush = trushies.filter {
+                $0.category.lowercased().contains(searchText.lowercased())  ||
+                $0.name.lowercased().contains(searchText.lowercased())
             }
-        )
         
         debugPrint(filteredTrush)
         searching = true
