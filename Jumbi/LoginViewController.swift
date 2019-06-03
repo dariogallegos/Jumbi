@@ -56,19 +56,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func isLogin(){
-        
         guard let _ = UserDefaults.standard.string(forKey: kEmail),
             let _ = UserDefaults.standard.string(forKey: kPass) else {
-            
             return performSegue(withIdentifier: "RegisterSegue", sender: nil)
         }
-        
     }
     
     
     
     func assignValuestoForm() {
-        
         if let email = lblEmail.text?.lowercased(){
             emailUser = email
         }
