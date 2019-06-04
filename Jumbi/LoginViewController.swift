@@ -39,7 +39,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 
             }
             else{
-                let alert = UIAlertController(title: "Wow", message: "Relax and fill those fields", preferredStyle: .alert )
+                let alert = UIAlertController(title: "Ups, incorrect login", message: "Relax and fill those fields", preferredStyle: .alert )
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }

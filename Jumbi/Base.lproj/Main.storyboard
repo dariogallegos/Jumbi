@@ -137,7 +137,7 @@
                                                                 </constraints>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                             </textField>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -366,7 +366,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                <textInputTraits key="textInputTraits"/>
+                                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                             </textField>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -435,7 +435,7 @@
                         <outlet property="lblEmail" destination="t9s-hC-7he" id="rq4-XM-h0q"/>
                         <outlet property="lblName" destination="TmL-W4-x8d" id="N7S-oy-HhB"/>
                         <outlet property="lblPassword" destination="gh8-kG-cW2" id="Ffl-2r-XPO"/>
-                        <segue destination="pdO-lm-DDD" kind="show" id="FCU-YZ-Z5l"/>
+                        <segue destination="pdO-lm-DDD" kind="show" identifier="LoginFromRegisterSegue" id="FCU-YZ-Z5l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kip-ba-hn9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -601,7 +601,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="k3R-ig-kkb"/>
-        <segue reference="FCU-YZ-Z5l"/>
+        <segue reference="x6S-1g-pgp"/>
         <segue reference="RZH-wv-DLB"/>
     </inferredMetricsTieBreakers>
 </document>
