@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController, UISearchBarDelegate {
+class MapViewController: UIViewController, UISearchBarDelegate {
     
     let locationManager = CLLocationManager()
     let geocoder = CLGeocoder()
@@ -17,35 +17,45 @@ class ViewController: UIViewController, UISearchBarDelegate {
     var searchBarController = UISearchController()
     
     @IBOutlet weak var mapView: MKMapView!
-    //@IBOutlet weak var lblLatitud: UILabel!
-    //@IBOutlet weak var lblLongitud: UILabel!
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        debugPrint("estoy en location")
+        
         mapView.showsUserLocation = true
+        mapView.delegate = self
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.startUpdatingLocation()
         
-        //Cambiamos el UITapGestureRecognizer por el UIlongPressedRecognizer para que no haya problemas
-        // cuando pulsemos para moverlo o ver el callout
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(action(gestureRecognizer:)))
         //let tapGesture = UILongPressGestureRecognizer(target: self, action: #selector(action(gestureRecognizer:)))
         mapView.addGestureRecognizer(tapGesture)
         
-        
     }
+    
+    
+    
+    
     @IBAction func locationButtonPressed() {
         initLocation()
     }
     
+    func addChuchelandia() {
+        let coord = CLLocationCoordinate2D(latitude: 40.4167, longitude: -3.70325)
+        let poi = PointOfInterest(title: "Chuchelandia",
+                                  subtitle: "Se te hace el chuche agua",
+                                  coordinate: coord)
+        
+        mapView.addAnnotation(poi)
+    }
     
+    func centerMapOnLocation(_ location: CLLocationCoordinate2D) {
+        let region = MKCoordinateRegion(center: location, latitudinalMeters: 550.0, longitudinalMeters: 550.0)
+        mapView.setRegion(region, animated: true)
+    }
+
     
     //Inicia el pedido de permiso
     func initLocation(){
@@ -62,7 +72,9 @@ class ViewController: UIViewController, UISearchBarDelegate {
             guard let currentCoordinate = locationManager.location?.coordinate else {
                 return
             }
-            let region = MKCoordinateRegion(center: currentCoordinate, latitudinalMeters: 500 , longitudinalMeters: 500)
+            
+            //ne currentLocation pongo madrid y coneso ta deveria estar
+            let region = MKCoordinateRegion(center: currentCoordinate, latitudinalMeters: 550 , longitudinalMeters: 550)
             mapView.setRegion(region, animated: true)
         }
     }
@@ -77,13 +89,13 @@ class ViewController: UIViewController, UISearchBarDelegate {
 }
 
 
-extension ViewController: CLLocationManagerDelegate {
+extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Estoy en la location manager")
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {}
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    }
     
     //Funcion que gestiona el tap del pin. -necesita esta nomenclatura @objc
     @objc func action(gestureRecognizer: UIGestureRecognizer) {
@@ -179,7 +191,13 @@ extension ViewController: CLLocationManagerDelegate {
     
 }
 
-extension ViewController : MKMapViewDelegate {
+extension MapViewController : MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation){
+        debugPrint("se ha actualizado el mapView \(userLocation.coordinate)")
+        centerMapOnLocation(userLocation.coordinate)
+        addChuchelandia()
+    }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
@@ -205,4 +223,7 @@ extension ViewController : MKMapViewDelegate {
         }
         return annotationView
     }
+    
+
+
 }
