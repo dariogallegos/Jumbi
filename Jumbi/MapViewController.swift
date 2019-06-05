@@ -33,9 +33,23 @@ class MapViewController: UIViewController, UISearchBarDelegate {
         //let tapGesture = UILongPressGestureRecognizer(target: self, action: #selector(action(gestureRecognizer:)))
         mapView.addGestureRecognizer(tapGesture)
         
+        
+        let coord1 = CLLocationCoordinate2D(latitude: 40.4173, longitude: -3.706253)
+        let poi1 = PointOfInterest(title: "Basurero Green", subtitle:"verde", coordinate:coord1)
+        let coord2 = CLLocationCoordinate2D(latitude: 40.4190, longitude: -3.701818)
+        let poi2 = PointOfInterest(title: "Basurero Blue", subtitle:"Blue", coordinate:coord2)
+        let coord3 = CLLocationCoordinate2D(latitude: 40.4131, longitude: -3.700808)
+        let poi3 = PointOfInterest(title: "Basurero Yellow", subtitle:"Yellow", coordinate:coord3)
+        let coord4 = CLLocationCoordinate2D(latitude: 40.4216, longitude: -3.702828)
+        let poi4 = PointOfInterest(title: "Basurero Yellow", subtitle:"Yellow", coordinate:coord4)
+        
+        
+        mapView.addAnnotation(poi1)
+        mapView.addAnnotation(poi2)
+        mapView.addAnnotation(poi3)
+        mapView.addAnnotation(poi4)
+        
     }
-    
-    
     
     
     @IBAction func locationButtonPressed() {
@@ -100,7 +114,7 @@ extension MapViewController: CLLocationManagerDelegate {
     //Funcion que gestiona el tap del pin. -necesita esta nomenclatura @objc
     @objc func action(gestureRecognizer: UIGestureRecognizer) {
         
-        self.mapView.removeAnnotations(mapView.annotations)
+        //self.mapView.removeAnnotations(mapView.annotations)
         
         let touchPoint = gestureRecognizer.location(in: mapView)
         let newCoords = mapView.convert(touchPoint, toCoordinateFrom: mapView)
