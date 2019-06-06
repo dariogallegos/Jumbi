@@ -43,13 +43,19 @@ class MapViewController: UIViewController, UISearchBarDelegate {
         let poi3 = PointOfInterest(title: "Basurero Yellow", subtitle:"Amarillo", coordinate:coord3)
         let coord4 = CLLocationCoordinate2D(latitude: 40.4216, longitude: -3.702828)
         let poi4 = PointOfInterest(title: "Basurero Yellow", subtitle:"Amarillo", coordinate:coord4)
+        let coord5 = CLLocationCoordinate2D(latitude: 40.4195, longitude: -3.705252)
+        let poi5 = PointOfInterest(title: "Basurero Amarillo", subtitle:"Amarillo", coordinate:coord5)
+        let coord6 = CLLocationCoordinate2D(latitude: 40.4132, longitude: -3.706666)
+        let poi6 = PointOfInterest(title: "Basurero Azul", subtitle:"Azul", coordinate:coord6)
+        
         
         
         mapView.addAnnotation(poi1)
         mapView.addAnnotation(poi2)
         mapView.addAnnotation(poi3)
         mapView.addAnnotation(poi4)
-        
+        mapView.addAnnotation(poi5)
+        mapView.addAnnotation(poi6)
     }
     
     
@@ -87,8 +93,6 @@ class MapViewController: UIViewController, UISearchBarDelegate {
             guard let currentCoordinate = locationManager.location?.coordinate else {
                 return
             }
-            
-            //ne currentLocation pongo madrid y coneso ta deveria estar
             let region = MKCoordinateRegion(center: currentCoordinate, latitudinalMeters: 550 , longitudinalMeters: 550)
             mapView.setRegion(region, animated: true)
         }
@@ -123,9 +127,6 @@ extension MapViewController: CLLocationManagerDelegate {
             self.mapView.removeAnnotation(annotationTapped!)
         }
         //self.mapView.removeAnnotations(mapView.annotations)
-        
-        
-        
         
         
         let touchPoint = gestureRecognizer.location(in: mapView)
