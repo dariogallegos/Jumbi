@@ -35,13 +35,13 @@ class MapViewController: UIViewController, UISearchBarDelegate {
         
         
         let coord1 = CLLocationCoordinate2D(latitude: 40.4173, longitude: -3.706253)
-        let poi1 = PointOfInterest(title: "Basurero Green", subtitle:"verde", coordinate:coord1)
+        let poi1 = PointOfInterest(title: "Basurero Green", subtitle:"Verde", coordinate:coord1)
         let coord2 = CLLocationCoordinate2D(latitude: 40.4190, longitude: -3.701818)
-        let poi2 = PointOfInterest(title: "Basurero Blue", subtitle:"Blue", coordinate:coord2)
+        let poi2 = PointOfInterest(title: "Basurero Blue", subtitle:"Azul", coordinate:coord2)
         let coord3 = CLLocationCoordinate2D(latitude: 40.4131, longitude: -3.700808)
-        let poi3 = PointOfInterest(title: "Basurero Yellow", subtitle:"Yellow", coordinate:coord3)
+        let poi3 = PointOfInterest(title: "Basurero Yellow", subtitle:"Amarillo", coordinate:coord3)
         let coord4 = CLLocationCoordinate2D(latitude: 40.4216, longitude: -3.702828)
-        let poi4 = PointOfInterest(title: "Basurero Yellow", subtitle:"Yellow", coordinate:coord4)
+        let poi4 = PointOfInterest(title: "Basurero Yellow", subtitle:"Amarillo", coordinate:coord4)
         
         
         mapView.addAnnotation(poi1)
@@ -114,7 +114,8 @@ extension MapViewController: CLLocationManagerDelegate {
     //Funcion que gestiona el tap del pin. -necesita esta nomenclatura @objc
     @objc func action(gestureRecognizer: UIGestureRecognizer) {
         
-        //self.mapView.removeAnnotations(mapView.annotations)
+        //control. Si no las mias iniciales no las borro!
+        self.mapView.removeAnnotations(mapView.annotations)
         
         let touchPoint = gestureRecognizer.location(in: mapView)
         let newCoords = mapView.convert(touchPoint, toCoordinateFrom: mapView)
@@ -207,10 +208,11 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController : MKMapViewDelegate {
     
+    //nuestra posicion actual
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation){
         debugPrint("se ha actualizado el mapView \(userLocation.coordinate)")
         centerMapOnLocation(userLocation.coordinate)
-        addChuchelandia()
+        //addChuchelandia()
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -231,9 +233,19 @@ extension MapViewController : MKMapViewDelegate {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationID)
         }
         
-        if let annotationView = annotationView {
-            annotationView.canShowCallout = true
-            annotationView.image = UIImage(named: "img_pin")
+        if let annotation = annotationView?.annotation {
+            annotationView?.canShowCallout = true
+            
+            switch annotation.subtitle {
+                case "Verde":
+                    annotationView?.image = UIImage(named: "img_verde")
+                case "Azul":
+                    annotationView?.image = UIImage(named: "img_azul")
+                case "Amarillo":
+                    annotationView?.image = UIImage(named: "img_amarillo")
+                default:
+                    annotationView?.image = UIImage(named: "img_pin")
+            }
         }
         return annotationView
     }

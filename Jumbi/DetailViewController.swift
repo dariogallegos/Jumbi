@@ -44,6 +44,7 @@ class DetailViewController: UIViewController {
         
         
     }
+    
     @objc func imageTapped() {
         //self.navigationController?.pushViewController(ViewController(), animated: true)
         performSegue(withIdentifier:"LocationSegue", sender: nil)
