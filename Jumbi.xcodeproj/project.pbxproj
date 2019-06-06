@@ -39,7 +39,6 @@
 		D918DBB422A1A9E5001F22C1 /* Trush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trush.swift; sourceTree = "<group>"; };
 		D92D3DE722A8144D009236D7 /* PointOfInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointOfInterest.swift; sourceTree = "<group>"; };
 		D92D3DE922A8312B009236D7 /* Madrid.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Madrid.gpx; sourceTree = "<group>"; };
-		D92D3DEB22A83198009236D7 /* Madrid.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Madrid.gpx; path = Jumbi/Helpers/Madrid.gpx; sourceTree = "<group>"; };
 		D9947F1822A5693500ED730B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D9947F1A22A581AB00ED730B /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,7 +57,6 @@
 		A308D266229DF935009ED4C0 = {
 			isa = PBXGroup;
 			children = (
-				D92D3DEB22A83198009236D7 /* Madrid.gpx */,
 				A308D271229DF936009ED4C0 /* Jumbi */,
 				A308D270229DF936009ED4C0 /* Products */,
 			);

@@ -15,6 +15,7 @@ class MapViewController: UIViewController, UISearchBarDelegate {
     let geocoder = CLGeocoder()
     var address = ""
     var searchBarController = UISearchController()
+    var annotationTapped: MKAnnotation?
     
     @IBOutlet weak var mapView: MKMapView!
 
@@ -114,8 +115,18 @@ extension MapViewController: CLLocationManagerDelegate {
     //Funcion que gestiona el tap del pin. -necesita esta nomenclatura @objc
     @objc func action(gestureRecognizer: UIGestureRecognizer) {
         
+        
+        
         //control. Si no las mias iniciales no las borro!
-        self.mapView.removeAnnotations(mapView.annotations)
+        if let my = annotationTapped{
+            debugPrint("El titulo del objeto es \(String(describing: my.title)))")
+            self.mapView.removeAnnotation(annotationTapped!)
+        }
+        //self.mapView.removeAnnotations(mapView.annotations)
+        
+        
+        
+        
         
         let touchPoint = gestureRecognizer.location(in: mapView)
         let newCoords = mapView.convert(touchPoint, toCoordinateFrom: mapView)
@@ -129,7 +140,12 @@ extension MapViewController: CLLocationManagerDelegate {
         annotation.coordinate = newCoords
         annotation.title = address
         annotation.subtitle = "Latitud: \(latitud) Longitud: \(longitud)"
+        
+        annotationTapped = annotation
+        
         mapView.addAnnotation(annotation)
+        
+        
         
     }
     
